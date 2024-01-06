@@ -8,8 +8,12 @@ import { MessagesComponent } from './messages/messages.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule,
-            HeroesComponent, MessagesComponent],
+  imports: [
+    CommonModule, 
+    RouterModule,
+    HeroesComponent, 
+    MessagesComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
