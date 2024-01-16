@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { HeroSearchComponent } from '../hero-search/hero-search.component';
 
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
@@ -10,7 +11,7 @@ import { HeroService } from '../hero.service';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
   standalone: true,
-  imports: [CommonModule, RouterLink]
+  imports: [CommonModule, RouterLink, HeroSearchComponent]
 })
 export class DashboardComponent implements OnInit{
   heroes: Hero[] = [];

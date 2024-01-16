@@ -49,6 +49,37 @@ export class HeroService {
       );
   }
 
+  addHero(hero: Hero): Observable<Hero> {
+    return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions)
+      .pipe(
+        tap((newHero: Hero) => this.log(`Added hero with id=${newHero.id}`)),
+        catchError(this.handleError<Hero>('addHero'))
+      );
+  }
+
+  deleteHero(id: number): Observable<Hero> {
+    const url = `${this.heroesUrl}/${id}`;
+
+    return this.http.delete<Hero>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted hero id=${id}`)),
+      catchError(this.handleError<Hero>('deleteHero'))
+    );
+  }
+
+  /* GET heroes whose name contains search term */
+  searchHeroes(term: string): Observable<Hero[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+      tap(x => x.length ?
+        this.log(`found heroes matching "${term}"`) :
+        this.log(`no heroes matching "${term}"`)),
+      catchError(this.handleError<Hero[]>('searchHeroes', []))
+    );
+  }
+
 /**
  * Handle the HTTP operation that failed, and let the app continue.
  * @param operation - name of the operation that failed
