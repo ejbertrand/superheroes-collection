@@ -16,7 +16,7 @@ import { MessagesService } from '../messages.service';
 export class HeroesComponent implements OnInit{
   heroes: Hero[] = [];
 
-  constructor(private heroService: HeroService, private messagesService: MessagesService){}
+  constructor(private heroService: HeroService){}
 
   ngOnInit(): void {
     this.getHeroes();

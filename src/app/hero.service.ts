@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Hero } from './hero';
-import { HEROES } from './mock-heroes';
 import { MessagesService } from './messages.service';
 
 @Injectable({
@@ -27,7 +26,7 @@ export class HeroService {
   getHeroes(): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.heroesUrl)
       .pipe(
-        tap(_ => this.log('fetched heroes')),
+        tap(_ => this.log('fetched superheroes')),
         catchError(this.handleError<Hero[]>('getHeroes', []))
       );
   }
@@ -52,7 +51,7 @@ export class HeroService {
   addHero(hero: Hero): Observable<Hero> {
     return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions)
       .pipe(
-        tap((newHero: Hero) => this.log(`Added hero with id=${newHero.id}`)),
+        tap((newHero: Hero) => this.log(`Added superhero with id=${newHero.id}`)),
         catchError(this.handleError<Hero>('addHero'))
       );
   }
@@ -60,8 +59,9 @@ export class HeroService {
   deleteHero(id: number): Observable<Hero> {
     const url = `${this.heroesUrl}/${id}`;
 
-    return this.http.delete<Hero>(url, this.httpOptions).pipe(
-      tap(_ => this.log(`deleted hero id=${id}`)),
+    return this.http.delete<Hero>(url, this.httpOptions)
+    .pipe(
+      tap(_ => this.log(`deleted superhero id=${id}`)),
       catchError(this.handleError<Hero>('deleteHero'))
     );
   }
@@ -74,8 +74,8 @@ export class HeroService {
     }
     return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
       tap(x => x.length ?
-        this.log(`found heroes matching "${term}"`) :
-        this.log(`no heroes matching "${term}"`)),
+        this.log(`found superheroes matching "${term}"`) :
+        this.log(`no superheroes matching "${term}"`)),
       catchError(this.handleError<Hero[]>('searchHeroes', []))
     );
   }
